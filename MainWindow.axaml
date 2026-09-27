@@ -1,0 +1,616 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="BluetoothManager.MainWindow"
+        Width="1150"
+        Height="720"
+        MinWidth="950"
+        MinHeight="600"
+        Title="Bluetooth Manager"
+        SystemDecorations="None"
+        TransparencyLevelHint="AcrylicBlur,Blur,None"
+        Background="Transparent">
+
+	<Window.Styles>
+
+		<!-- BUTTON HOVER -->
+
+		<Style Selector="Button">
+			<Setter Property="Cursor" Value="Hand"/>
+		</Style>
+
+		<Style Selector="Button:pointerover">
+			<Setter Property="Opacity" Value="0.85"/>
+		</Style>
+
+		<Style Selector="Button:pressed">
+			<Setter Property="Opacity" Value="0.65"/>
+		</Style>
+
+	</Window.Styles>
+
+
+	<!-- MAIN GLASS -->
+
+	<Border Background="#B8101825"
+            CornerRadius="24"
+            BoxShadow="0 24 60 -14 #75000000, 0 2 0 0 #12FFFFFF">
+
+		<Border.BorderBrush>
+			<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+				<GradientStop Color="#55FFFFFF" Offset="0"/>
+				<GradientStop Color="#15FFFFFF" Offset="0.5"/>
+				<GradientStop Color="#30FFFFFF" Offset="1"/>
+			</LinearGradientBrush>
+		</Border.BorderBrush>
+		<Border.BorderThickness>1</Border.BorderThickness>
+
+		<Grid>
+
+			<!-- GLASS SHEEN (light catching the top of the panel) -->
+
+			<Border CornerRadius="24,24,0,0"
+                    VerticalAlignment="Top"
+                    Height="240"
+                    IsHitTestVisible="False">
+
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+						<GradientStop Color="#20FFFFFF" Offset="0"/>
+						<GradientStop Color="#00FFFFFF" Offset="1"/>
+					</LinearGradientBrush>
+				</Border.Background>
+
+			</Border>
+
+
+			<Grid ColumnDefinitions="240,*">
+
+
+				<!-- ================= SIDEBAR ================= -->
+
+				<Border Grid.Column="0"
+                        Background="#45101825"
+                        BorderThickness="0,0,1,0"
+                        CornerRadius="23,0,0,23"
+                        Padding="20">
+
+					<Border.BorderBrush>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+							<GradientStop Color="#40FFFFFF" Offset="0"/>
+							<GradientStop Color="#10FFFFFF" Offset="1"/>
+						</LinearGradientBrush>
+					</Border.BorderBrush>
+
+					<Grid RowDefinitions="Auto,*,Auto">
+
+
+						<!-- LOGO -->
+
+						<StackPanel>
+
+							<Border Width="42"
+                                    Height="42"
+                                    CornerRadius="12"
+                                    Background="#2878C8FF"
+                                    BorderBrush="#40FFFFFF"
+                                    BorderThickness="1"
+                                    HorizontalAlignment="Left">
+
+								<TextBlock Text="ᛒ"
+                                           FontSize="24"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+
+							</Border>
+
+							<TextBlock Text="Bluetooth"
+                                       FontSize="23"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,15,0,0"/>
+
+							<TextBlock Text="Device Manager"
+                                       FontSize="12"
+                                       Foreground="#80FFFFFF"
+                                       Margin="0,2,0,0"/>
+
+						</StackPanel>
+
+
+						<!-- NAVIGATION -->
+
+						<StackPanel Grid.Row="1"
+                                    Margin="0,45,0,0"
+                                    Spacing="7">
+
+							<Border Background="#263A7DFF"
+                                    BorderBrush="#35FFFFFF"
+                                    BorderThickness="1"
+                                    CornerRadius="13"
+                                    Padding="13"
+                                    BoxShadow="0 4 14 -6 #40000000">
+
+								<StackPanel Orientation="Horizontal"
+                                            Spacing="12">
+
+									<TextBlock Text="⌂"
+                                               FontSize="20"
+                                               Foreground="#9DCCFF"/>
+
+									<TextBlock Text="Overview"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"
+                                               Foreground="White"/>
+
+								</StackPanel>
+
+							</Border>
+
+
+							<Border Background="Transparent"
+                                    Padding="13">
+
+								<StackPanel Orientation="Horizontal"
+                                            Spacing="12">
+
+									<TextBlock Text="◉"
+                                               FontSize="18"
+                                               Foreground="#70FFFFFF"/>
+
+									<TextBlock Text="Bluetooth"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"
+                                               Foreground="#B5FFFFFF"/>
+
+								</StackPanel>
+
+							</Border>
+
+
+							<Border Background="Transparent"
+                                    Padding="13">
+
+								<StackPanel Orientation="Horizontal"
+                                            Spacing="12">
+
+									<TextBlock Text="▣"
+                                               FontSize="18"
+                                               Foreground="#70FFFFFF"/>
+
+									<TextBlock Text="Devices"
+                                               FontSize="14"
+                                               VerticalAlignment="Center"
+                                               Foreground="#B5FFFFFF"/>
+
+								</StackPanel>
+
+							</Border>
+
+						</StackPanel>
+
+
+						<!-- SETTINGS -->
+
+						<Border Grid.Row="2"
+                                Background="#15FFFFFF"
+                                BorderBrush="#25FFFFFF"
+                                BorderThickness="1"
+                                CornerRadius="13"
+                                Padding="13">
+
+							<StackPanel Orientation="Horizontal"
+                                        Spacing="12">
+
+								<TextBlock Text="⚙"
+                                           FontSize="18"
+                                           Foreground="#A0FFFFFF"/>
+
+								<TextBlock Text="Settings"
+                                           FontSize="14"
+                                           VerticalAlignment="Center"
+                                           Foreground="#D0FFFFFF"/>
+
+							</StackPanel>
+
+						</Border>
+
+					</Grid>
+
+				</Border>
+
+
+				<!-- ================= MAIN ================= -->
+
+				<Grid Grid.Column="1"
+                      Margin="32">
+
+					<Grid RowDefinitions="Auto,Auto,Auto,*"
+                          RowSpacing="22">
+
+
+						<!-- HEADER -->
+
+						<Grid Grid.Row="0"
+                              ColumnDefinitions="*,Auto">
+
+							<StackPanel>
+
+								<TextBlock Text="Overview"
+                                           FontSize="32"
+                                           FontWeight="Bold"
+                                           Foreground="White"/>
+
+								<TextBlock Text="Manage your wireless devices"
+                                           FontSize="14"
+                                           Foreground="#80FFFFFF"
+                                           Margin="0,5,0,0"/>
+
+							</StackPanel>
+
+
+							<!-- BLUETOOTH CONTROL -->
+
+							<Border Grid.Column="1"
+                                    Background="#18FFFFFF"
+                                    BorderBrush="#30FFFFFF"
+                                    BorderThickness="1"
+                                    CornerRadius="18"
+                                    Padding="14,10"
+                                    BoxShadow="0 6 18 -8 #45000000">
+
+								<StackPanel Orientation="Horizontal"
+                                            Spacing="12">
+
+
+									<Ellipse x:Name="BluetoothStatusDot"
+                                             Width="8"
+                                             Height="8"
+                                             Fill="#67F59A"
+                                             VerticalAlignment="Center"/>
+
+
+									<TextBlock x:Name="BluetoothStatus"
+                                               Text="Bluetooth"
+                                               FontSize="13"
+                                               VerticalAlignment="Center"
+                                               Foreground="#A8FFD0"/>
+
+
+									<!-- TOGGLE -->
+
+									<Button x:Name="BluetoothToggle"
+                                            Click="BluetoothToggle_Click"
+                                            Width="54"
+                                            Height="28"
+                                            Padding="3"
+                                            Background="#3478D8FF"
+                                            BorderThickness="0"
+                                            CornerRadius="15">
+
+										<Border Width="22"
+                                                Height="22"
+                                                Background="White"
+                                                CornerRadius="11"
+                                                HorizontalAlignment="Left"
+                                                Margin="3,0,0,0"
+                                                x:Name="BluetoothToggleThumb">
+
+											<Border.RenderTransform>
+												<TranslateTransform X="0"/>
+											</Border.RenderTransform>
+
+											<Border.Transitions>
+												<Transitions>
+													<TransformOperationsTransition
+														Property="RenderTransform"
+														Duration="0:0:0.22"/>
+												</Transitions>
+											</Border.Transitions>
+
+										</Border>
+
+									</Button>
+
+								</StackPanel>
+
+							</Border>
+
+						</Grid>
+
+
+						<!-- CONNECTED TITLE -->
+
+						<Grid Grid.Row="1"
+                              ColumnDefinitions="*,Auto">
+
+							<TextBlock Text="Bluetooth"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       Foreground="White"/>
+
+							<Button Grid.Column="1"
+                                    Content="↻  Refresh"
+                                    Click="RefreshButton_Click"
+                                    Padding="15,8"
+                                    Background="#18FFFFFF"
+                                    Foreground="#D8FFFFFF"
+                                    BorderBrush="#30FFFFFF"
+                                    BorderThickness="1"
+                                    CornerRadius="10"/>
+
+						</Grid>
+
+
+						<!-- INFO CARD -->
+
+						<Border Grid.Row="2"
+                                Background="#171F3C5F"
+                                BorderBrush="#25FFFFFF"
+                                BorderThickness="1"
+                                CornerRadius="18"
+                                Padding="20"
+                                BoxShadow="0 10 28 -10 #50000000">
+
+							<Grid ColumnDefinitions="Auto,*,Auto">
+
+
+								<Border Width="56"
+                                        Height="56"
+                                        Background="#202D7CFF"
+                                        BorderBrush="#35FFFFFF"
+                                        BorderThickness="1"
+                                        CornerRadius="16">
+
+									<TextBlock Text="ᛒ"
+                                               FontSize="28"
+                                               Foreground="#A8D7FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+								</Border>
+
+
+								<StackPanel Grid.Column="1"
+                                            Margin="17,0,0,0"
+                                            VerticalAlignment="Center">
+
+									<TextBlock Text="Bluetooth connection"
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Foreground="White"/>
+
+									<TextBlock Text="Your Windows Bluetooth radio"
+                                               FontSize="12"
+                                               Foreground="#75FFFFFF"
+                                               Margin="0,5,0,0"/>
+
+								</StackPanel>
+
+
+								<StackPanel Grid.Column="2"
+                                            VerticalAlignment="Center">
+
+									<TextBlock Text="READY"
+                                               FontSize="11"
+                                               FontWeight="Bold"
+                                               Foreground="#88FFFFFF"
+                                               HorizontalAlignment="Right"/>
+
+									<TextBlock Text="Windows"
+                                               FontSize="12"
+                                               Foreground="#60FFFFFF"
+                                               HorizontalAlignment="Right"
+                                               Margin="0,3,0,0"/>
+
+								</StackPanel>
+
+							</Grid>
+
+						</Border>
+
+
+						<!-- DEVICES -->
+
+						<Grid Grid.Row="3"
+                              RowDefinitions="Auto,*">
+
+							<StackPanel Orientation="Horizontal"
+                Spacing="12">
+
+								<TextBlock Text="Available devices"
+										   FontSize="20"
+										   FontWeight="SemiBold"
+										   Foreground="White"/>
+
+								<Border Background="#142338"
+										CornerRadius="8"
+										Padding="9,4"
+										VerticalAlignment="Center">
+
+									<TextBlock x:Name="ScanStatus"
+											   Text="Ready"
+											   FontSize="10"
+											   Foreground="#83BFFF"/>
+
+								</Border>
+
+							</StackPanel>
+
+
+							<ScrollViewer Grid.Row="1"
+                                          Margin="0,15,0,0">
+
+								<Grid>
+
+									<!-- EMPTY -->
+
+									<TextBlock x:Name="EmptyMessage"
+                                               Text="Loading devices..."
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               Foreground="#75FFFFFF"/>
+
+
+									<!-- REAL DEVICES -->
+
+									<ItemsControl x:Name="DeviceList">
+
+										<ItemsControl.ItemTemplate>
+
+											<DataTemplate>
+
+												<Border Background="#16FFFFFF"
+														BorderThickness="1"
+														CornerRadius="16"
+														Padding="16"
+														Margin="0,0,0,10"
+														BoxShadow="0 6 16 -8 #40000000">
+
+													<Border.BorderBrush>
+														<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+															<GradientStop Color="#38FFFFFF" Offset="0"/>
+															<GradientStop Color="#18FFFFFF" Offset="1"/>
+														</LinearGradientBrush>
+													</Border.BorderBrush>
+
+													<Grid ColumnDefinitions="Auto,*,Auto"
+														  VerticalAlignment="Center">
+
+														<!-- DEVICE ICON -->
+
+														<Border Width="52"
+																Height="52"
+																Background="#182A75FF"
+																BorderBrush="#25FFFFFF"
+																BorderThickness="1"
+																CornerRadius="14">
+
+															<TextBlock Text="◉"
+																	   FontSize="23"
+																	   Foreground="#A9D7FF"
+																	   HorizontalAlignment="Center"
+																	   VerticalAlignment="Center"/>
+
+														</Border>
+
+
+														<!-- DEVICE INFO -->
+
+														<StackPanel Grid.Column="1"
+																	Margin="16,0,20,0"
+																	VerticalAlignment="Center"
+																	Spacing="4">
+
+															<TextBlock Text="{Binding Name}"
+																	   FontSize="15"
+																	   FontWeight="SemiBold"
+																	   Foreground="White"/>
+
+															<StackPanel Orientation="Horizontal"
+																		Spacing="7">
+
+																<Ellipse Width="7"
+																		 Height="7"
+																		 Fill="#63E99A"
+																		 VerticalAlignment="Center"/>
+
+																<TextBlock Text="{Binding Status}"
+																		   FontSize="11"
+																		   Foreground="#BFFFFFFF"/>
+
+																<TextBlock Text="•"
+																		   FontSize="11"
+																		   Foreground="#55FFFFFF"/>
+
+																<TextBlock Text="{Binding Type}"
+																		   FontSize="11"
+																		   Foreground="#80FFFFFF"/>
+
+															</StackPanel>
+
+															<TextBlock Text="{Binding SignalText}"
+																	   FontSize="11"
+																	   Foreground="#65FFFFFF"/>
+
+														</StackPanel>
+
+
+														<!-- RIGHT SIDE -->
+
+														<StackPanel Grid.Column="2"
+																	Orientation="Horizontal"
+																	Spacing="8"
+																	VerticalAlignment="Center">
+
+															<!-- SIGNAL -->
+
+															<Border Background="#12FFFFFF"
+																	BorderBrush="#22FFFFFF"
+																	BorderThickness="1"
+																	CornerRadius="9"
+																	Padding="10,7">
+
+																<TextBlock
+																	Text="{Binding SignalStrength, StringFormat={}{0} dBm}"
+																	FontSize="10"
+																	Foreground="#A8FFFFFF"/>
+
+															</Border>
+
+
+															<!-- PAIR -->
+
+															<Button Content="Pair"
+																	Tag="{Binding}"
+																	Click="PairButton_Click"
+																	Padding="13,8"
+																	Background="#2866B2"
+																	Foreground="White"
+																	BorderThickness="0"
+																	CornerRadius="9"
+																	IsVisible="{Binding IsPaired, Converter={x:Static BoolConverters.Not}}"/>
+
+
+															<!-- REMOVE -->
+
+															<Button Content="Remove"
+																	Tag="{Binding}"
+																	Click="UnpairButton_Click"
+																	Padding="13,8"
+																	Background="#351F27"
+																	Foreground="#FFB6C0"
+																	BorderThickness="0"
+																	CornerRadius="9"
+																	IsVisible="{Binding IsPaired}"/>
+
+														</StackPanel>
+
+													</Grid>
+
+												</Border>
+
+											</DataTemplate>
+
+										</ItemsControl.ItemTemplate>
+
+									</ItemsControl>
+								</Grid>
+
+							</ScrollViewer>
+
+						</Grid>
+
+					</Grid>
+
+				</Grid>
+
+			</Grid>
+
+		</Grid>
+
+	</Border>
+
+</Window>
